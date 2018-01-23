@@ -8,10 +8,22 @@
 }
 
 .color-div {
+  display: flex;
+  flex-direction: column-reverse;
   height: 200px;
   width: 20%;
 }
 
-.locked {
-  border: 2px solid magenta;
+.icon {
+  align-self: center;
+  background-image: url('../assets/unlock.png');
+  background-size: cover;
+  height: 50px;
+  margin-bottom: 10px;
+  width: 50px;
+}
+
+.locked .icon {
+  background-image: url('../assets/lock.png');
+  background-size: cover;
 }
