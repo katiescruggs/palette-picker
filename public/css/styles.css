@@ -11,6 +11,9 @@ header {
 }
 
 h1 {
+  font-size: 35px;
+  font-weight: normal;
+  letter-spacing: 2px;
   margin: 20px;
   text-align: center;
 }
@@ -34,8 +37,10 @@ main {
 
 .hex-code {
   align-self: center;
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 35px;
+  letter-spacing: 2px;
+  opacity: 0.5;
+  margin-bottom: 40px;
 }
 
 .color-div:hover {
@@ -101,4 +106,8 @@ input,
 button {
   font-size: 16px;
   padding: 2px;
+}
+
+.dark {
+  color: white;
 }
