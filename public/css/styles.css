@@ -10,20 +10,30 @@
 .color-div {
   display: flex;
   flex-direction: column-reverse;
-  height: 200px;
+  height: 500px;
   width: 20%;
+}
+
+.hex-code {
+  align-self: center;
+}
+
+.color-div:hover .icon {
+  display: block;
 }
 
 .icon {
   align-self: center;
   background-image: url('../assets/unlock.png');
   background-size: cover;
+  display: none;
   height: 50px;
-  margin-bottom: 10px;
+  margin-bottom: 100px;
   width: 50px;
 }
 
 .locked .icon {
   background-image: url('../assets/lock.png');
   background-size: cover;
+  display: block;
 }
