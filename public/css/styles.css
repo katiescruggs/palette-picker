@@ -11,6 +11,9 @@ header {
 }
 
 h1 {
+  font-size: 35px;
+  font-weight: normal;
+  letter-spacing: 2px;
   margin: 20px;
   text-align: center;
 }
@@ -34,8 +37,14 @@ main {
 
 .hex-code {
   align-self: center;
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 35px;
+  letter-spacing: 2px;
+  opacity: 0.5;
+  margin-bottom: 40px;
+}
+
+.color-div:hover {
+  cursor: pointer;
 }
 
 .color-div:hover .icon {
@@ -72,6 +81,56 @@ main {
 }
 
 .projects-container {
-  height: 100vh;
-  width: 400px;
+  height: calc(100vh - 140px);
+  padding: 10px;
+  margin-top: 120px;
+  width: 300px;
+}
+
+.save-palette {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 150px;
+}
+
+h2 {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.display-projects {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100px;
+  margin-top: 30px;
+
+}
+
+select,
+input,
+button,
+span {
+  font-size: 20px;
+  padding: 2px;
+}
+
+.dark {
+  color: white;
+}
+
+.square-holder {
+  align-self: center;
+  display: flex;
+  height: 30px;
+  width: 250px;
+}
+
+.project-square {
+  background-color: red;
+  height: 30px;
+  width: 20%;
 }
