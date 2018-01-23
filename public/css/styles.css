@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.color-container {
+  display: flex;
+}
+
+.color-div {
+  height: 200px;
+  width: 20%;
+}
+
+#color-one {
+  background-color: blue;
+}
+
+#color-two {
+  background-color: red;
+}
+
+#color-three {
+  background-color: purple;
+}
+
+#color-four {
+  background-color: magenta;
+}
+
+#color-five {
+  background-color: yellow;
+}
