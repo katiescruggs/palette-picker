@@ -38,6 +38,10 @@ main {
   margin-bottom: 10px;
 }
 
+.color-div:hover {
+  cursor: pointer;
+}
+
 .color-div:hover .icon {
   display: block;
 }
@@ -72,6 +76,21 @@ main {
 }
 
 .projects-container {
+  background-color: gray;
   height: 100vh;
+  /*padding: 10px;*/
+  padding-top: 120px;
   width: 400px;
+}
+
+h2 {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+select,
+input,
+button {
+  font-size: 16px;
+  padding: 2px;
 }
