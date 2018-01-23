@@ -77,11 +77,19 @@ main {
 
 .projects-container {
   background-color: gray;
-  height: 100vh;
-  /*padding: 10px;*/
-  padding-top: 120px;
+  height: calc(100vh - 140px);
+  padding: 10px;
+  margin-top: 120px;
   width: 400px;
 }
+
+.save-palette {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 150px;
+}
+
 
 h2 {
   font-size: 20px;

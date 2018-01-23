@@ -1,6 +1,29 @@
-let colors = ['#FFF', '#FFF', '#FFF', '#FFF', '#FFF'];
-let colorDivs = [colorZero, colorOne, colorTwo, colorThree, colorFour];
-let hexParas = [hexZero, hexOne, hexTwo, hexThree, hexFour];
+let blocks = [
+  {
+    div: colorZero,
+    hex: hexZero,
+    color: '#FFF'
+  },
+  {
+    div: colorOne,
+    hex: hexOne,
+    color: '#FFF'
+  },
+  {
+    div: colorTwo,
+    hex: hexTwo,
+    color: '#FFF'
+  },
+  {
+    div: colorThree,
+    hex: hexThree,
+    color: '#FFF'
+  },
+  {
+    div: colorFour,
+    hex: hexFour,
+    color: '#FFF'
+  }];
 
 const randomColor = () => {
   //random hex color generator by Paul Irish: 
@@ -9,11 +32,11 @@ const randomColor = () => {
 };
 
 const refreshColors = () => {
-  colors = colors.map(color => randomColor());
-  colorDivs.forEach((colorDiv, index) => {
-    if (!$(colorDiv).hasClass('locked')) {
-      colorDiv.style.backgroundColor = colors[index];
-      hexParas[index].innerText = colors[index];
+  blocks.forEach(block => {
+    if(!$(block.div).hasClass('locked')) {
+      block.color = randomColor();
+      block.div.style.backgroundColor = block.color;
+      block.hex.innerText = block.color;
     }
   });
 };
@@ -23,7 +46,7 @@ $(document).ready(() => {
 });
 
 $(document).on('keyup', (e) => {
-  if (e.keyCode === 32) {
+  if (e.keyCode === 32 && e.target === document.body) {
     refreshColors();
   }
 });
