@@ -43,7 +43,6 @@ const refreshColors = () => {
   blocks.forEach(block => {
     if(!$(block.div).hasClass('locked')) {
       let { color, dark } = randomColor();
-      console.log(color, dark);
 
       if (dark) {
         $(block.div).addClass('dark');
