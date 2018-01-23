@@ -20,9 +20,9 @@ $(document).ready(() => {
   refreshColors();
 });
 
-$(btn).on('click', () => {
-  refreshColors();
-});
+$(document).on('keyup', refreshColors);
+
+$(btn).on('click', refreshColors);
 
 $('.color-container').on('click', '.color-div', function() {
   $(this).toggleClass('locked');
