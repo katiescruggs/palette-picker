@@ -22,7 +22,11 @@ $(document).ready(() => {
   refreshColors();
 });
 
-$(document).on('keyup', refreshColors);
+$(document).on('keyup', (e) => {
+  if (e.keyCode === 32) {
+    refreshColors();
+  }
+});
 
 $(btn).on('click', refreshColors);
 
