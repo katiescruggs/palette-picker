@@ -1,5 +1,6 @@
 let colors = ['#FFF', '#FFF', '#FFF', '#FFF', '#FFF'];
 let colorDivs = [colorZero, colorOne, colorTwo, colorThree, colorFour];
+let hexParas = [hexZero, hexOne, hexTwo, hexThree, hexFour];
 
 const randomColor = () => {
   //random hex color generator by Paul Irish: 
@@ -12,6 +13,7 @@ const refreshColors = () => {
   colorDivs.forEach((colorDiv, index) => {
     if (!$(colorDiv).hasClass('locked')) {
       colorDiv.style.backgroundColor = colors[index];
+      hexParas[index].innerText = colors[index];
     }
   });
 };
