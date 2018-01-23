@@ -1,5 +1,5 @@
 let colors = ['#FFF', '#FFF', '#FFF', '#FFF', '#FFF'];
-let colorBlocks = [colorZero, colorOne, colorTwo, colorThree, colorFour];
+let colorDivs = [colorZero, colorOne, colorTwo, colorThree, colorFour];
 
 const randomColor = () => {
   //random hex color generator by Paul Irish: 
@@ -9,8 +9,10 @@ const randomColor = () => {
 
 const refreshColors = () => {
   colors = colors.map(color => randomColor());
-  colors.forEach((color, index) => {
-    colorBlocks[index].style.backgroundColor = color;
+  colorDivs.forEach((colorDiv, index) => {
+    if (!$(colorDiv).hasClass('locked')) {
+      colorDiv.style.backgroundColor = colors[index];
+    }
   });
 };
 
@@ -18,6 +20,10 @@ $(document).ready(() => {
   refreshColors();
 });
 
-btn.addEventListener('click', () => {
+$(btn).on('click', () => {
   refreshColors();
+});
+
+$('.color-container').on('click', '.color-div', function() {
+  $(this).toggleClass('locked');
 });

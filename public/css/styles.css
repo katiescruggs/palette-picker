@@ -12,22 +12,6 @@
   width: 20%;
 }
 
-#colorOne {
-  background-color: blue;
-}
-
-#colorTwo {
-  background-color: red;
-}
-
-#colorThree {
-  background-color: purple;
-}
-
-#colorFour {
-  background-color: magenta;
-}
-
-#colorFive {
-  background-color: yellow;
+.locked {
+  border: 2px solid magenta;
 }
