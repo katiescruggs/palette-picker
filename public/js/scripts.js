@@ -57,8 +57,34 @@ const refreshColors = () => {
   });
 };
 
+const fetchProjects = async () => {
+  const projectsFetch = await fetch('/api/v1/projects');
+  const projects = await projectsFetch.json();
+
+  console.log(projects.projects);
+  fetchPalettes(projects.projects);
+};
+
+const fetchPalettes = async (projects) => {
+  const unresolvedPalettes = projects.map(async (project) => {
+    const paletteFetch = await fetch(`/api/v1/palettes/${project}`);
+    const paletteObj = await paletteFetch.json();
+    return { [project]: paletteObj.palettes };
+  });
+
+  const palettes = await Promise.all(unresolvedPalettes);
+  displaySavedPalettes(palettes);
+};
+
+const displaySavedPalettes = (palettes) => {
+  palettes.forEach(palette => {
+
+  });
+};
+
 $(document).ready(() => {
   refreshColors();
+  fetchProjects();
 });
 
 $(document).on('keyup', (e) => {
