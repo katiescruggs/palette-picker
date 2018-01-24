@@ -78,7 +78,18 @@ const fetchPalettes = async (projects) => {
 
 const displaySavedPalettes = (palettes) => {
   palettes.forEach(palette => {
+    const project = Object.keys(palette);
 
+    $('.display-projects').append(`
+      <h3>${Object.keys(palette)}</h3>
+      <div class="square-holder">
+        <div class="project-square" style="background-color:${palette[project][0]}"></div>
+        <div class="project-square" style="background-color:${palette[project][1]}"></div>
+        <div class="project-square" style="background-color:${palette[project][2]}"></div>
+        <div class="project-square" style="background-color:${palette[project][3]}"></div>
+        <div class="project-square" style="background-color:${palette[project][4]}"></div>
+      </div>
+    `);
   });
 };
 
