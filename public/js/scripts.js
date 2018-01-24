@@ -57,8 +57,47 @@ const refreshColors = () => {
   });
 };
 
+const fetchProjects = async () => {
+  const projectsFetch = await fetch('/api/v1/projects');
+  const projects = await projectsFetch.json();
+
+  console.log(projects.projects);
+  fetchPalettes(projects.projects);
+};
+
+const fetchPalettes = async (projects) => {
+  const unresolvedPalettes = projects.map(async (project) => {
+    const paletteFetch = await fetch(`/api/v1/palettes/${project}`);
+    const paletteObj = await paletteFetch.json();
+    return { [project]: paletteObj.palettes };
+  });
+
+  const palettes = await Promise.all(unresolvedPalettes);
+  displaySavedPalettes(palettes);
+};
+
+const displaySavedPalettes = (palettes) => {
+  palettes.forEach(palette => {
+    const project = Object.keys(palette);
+    $('.display-projects').append(`<h3>${Object.keys(palette)}</h3>`);
+
+    for (var i = 0; i < palette[project].length; i++) {
+      $('.display-projects').append(`
+        <div class="square-holder">
+          <div class="project-square" style="background-color:${palette[project][i][0]}"></div>
+          <div class="project-square" style="background-color:${palette[project][i][1]}"></div>
+          <div class="project-square" style="background-color:${palette[project][i][2]}"></div>
+          <div class="project-square" style="background-color:${palette[project][i][3]}"></div>
+          <div class="project-square" style="background-color:${palette[project][i][4]}"></div>
+        </div>
+      `);
+    }
+  });
+}
+
 $(document).ready(() => {
   refreshColors();
+  fetchProjects();
 });
 
 $(document).on('keyup', (e) => {
