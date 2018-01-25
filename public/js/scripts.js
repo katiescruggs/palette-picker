@@ -130,16 +130,24 @@ const postPalette = async (paletteBody, project) => {
   $('.display-projects').html('');
   fetchProjects();
   console.log(`${paletteBody.title} palette created in ${project.title}!`)
-  }
 };
 
-const newProject = () => {
+const postProject = async () => {
+  const title = $('#project-input').val();
+  
+  const initialPost = await fetch('api/v1/projects/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ title })
+  });
 
+  const post = await initialPost.json();
+  console.log(post)
 };
 
-const postProject = () => {
 
-};
 
 const deletePalette = () => {
 
@@ -150,7 +158,7 @@ $(document).ready(() => {
   fetchProjects();
 });
 
-$(document).on('keyup', (e) => {
+$(document).on('keydown', (e) => {
   if (e.keyCode === 32 && e.target === document.body) {
     refreshColors();
   }
@@ -161,3 +169,4 @@ $('.color-container').on('click', '.color-div', function() {
 });
 
 $('#save-palette-btn').on('click', savePalette);
+$('#new-project-btn').on('click', postProject);
