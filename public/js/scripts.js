@@ -62,20 +62,22 @@ const fetchProjects = async () => {
   const projectResults = await projectsFetch.json();
   const projects = projectResults.results;
 
-  console.log(projects);
-  fetchPalettes(projects[0]);
+  projects.forEach(project => {
+    displaySelectOption(project.title);
+    fetchPalettes(project);
+  });
 };
 
 const fetchPalettes = async (project) => {
-  console.log(project);
-
   const paletteFetch = await fetch(`/api/v1/projects/${project.id}/palettes`);
   const paletteResults = await paletteFetch.json();
   const palette = paletteResults.results;
 
-  console.log(palette);
-
   displaySavedPalettes(project.title, palette);
+};
+
+const displaySelectOption = (projectTitle) => {
+  $('#dropdown').append(`<option value=${projectTitle}>${projectTitle}</option>`);
 };
 
 const displaySavedPalettes = (projectTitle, palette) => {
