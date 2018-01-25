@@ -24,12 +24,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (request, response) => {
-  response.sendFile(path.join(__dirname, 'public'));
-});
-
 app.listen(app.get('port'), () => {
   console.log(`Palette Picker running on ${app.get('port')}`);
+});
+
+app.get('/', (request, response) => {
+  response.sendFile(path.join(__dirname, 'public'));
 });
 
 app.get('/api/v1/projects', (request, response) => {
@@ -62,20 +62,25 @@ app.post('/api/v1/projects', (request, response) => {
     })
 });
 
-app.get('/api/v1/palettes', (request, response) => {
-  database('palettes').select()
+app.get('/api/v1/projects/:projectId/palettes', (request, response) => {
+  const { projectId } = request.params;
+
+  database('palettes').where('project_id', projectId).select()
     .then(palettes => {
-      return response.status(200).json({ palettes });
+      if (palettes.length) {
+        return response.status(200).json({ results: palettes });
+      }
     })
     .catch(error => {
       return response.status(500).json({ error });
     })
 });
 
-app.get('/api/v1/palettes/:project', (request, response) => {
-  const { project } = request.params;
-  const palettes = app.locals.palettes[project];
+app.post('/api/v1/projects/:projectId/palettes', (request, response) => {
 
-  console.log(project, palettes);
-  return response.status(201).json({ palettes });
 });
+
+app.delete('/api/v1/projects/:projectId/palettes/:paletteId', (request, response) => {
+
+});
+
