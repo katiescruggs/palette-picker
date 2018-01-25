@@ -25,6 +25,8 @@ let blocks = [
     color: '#FFF'
   }];
 
+let fetchedProjects;
+
 const randomNum = () => {
   return Math.floor(Math.random() * 16);
 }
@@ -62,6 +64,8 @@ const fetchProjects = async () => {
   const projectResults = await projectsFetch.json();
   const projects = projectResults.results;
 
+  fetchedProjects = projects;
+
   projects.forEach(project => {
     displaySelectOption(project.title);
     fetchPalettes(project);
@@ -97,6 +101,50 @@ const displaySavedPalettes = (projectTitle, palette) => {
   }
 }
 
+const savePalette = () => {
+  const projectTitle = $('#dropdown').val();
+  const project = fetchedProjects.find(fetchedProj => fetchedProj.title === projectTitle);
+
+  const title = $('#palette-input').val();
+  const color1 = blocks[0].color;
+  const color2 = blocks[1].color;
+  const color3 = blocks[2].color;
+  const color4 = blocks[3].color;
+  const color5 = blocks[4].color;
+
+  const paletteBody = { title, color1, color2, color3, color4, color5 };
+
+  postPalette(paletteBody, project);
+};
+
+const postPalette = async (paletteBody, project) => {
+  const initialPost = await fetch(`api/v1/projects/${project.id}/palettes`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(paletteBody)
+  });
+
+  const post = await initialPost.json();
+  $('.display-projects').html('');
+  fetchProjects();
+  console.log(`${paletteBody.title} palette created in ${project.title}!`)
+  }
+};
+
+const newProject = () => {
+
+};
+
+const postProject = () => {
+
+};
+
+const deletePalette = () => {
+
+};
+
 $(document).ready(() => {
   refreshColors();
   fetchProjects();
@@ -111,3 +159,5 @@ $(document).on('keyup', (e) => {
 $('.color-container').on('click', '.color-div', function() {
   $(this).toggleClass('locked');
 });
+
+$('#save-palette-btn').on('click', savePalette);
