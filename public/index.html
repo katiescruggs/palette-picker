@@ -34,31 +34,27 @@
       </section>
 
       <section class="projects-container">
+        <div class="new-project">
+          <h2>Create a New Project: </h2>
+          <input id="project-input" type="text" placeholder="New Project Name">
+          <button id="new-project-btn">Create Project</button>
+        </div>
+
         <div class="save-palette">
           <h2>Save Current Palette: </h2>
-          <input type="text" placeholder="New palette name">
+          <input id="palette-input" type="text" placeholder="New palette name">
           <div class="project-line">
             <span>in</span>
-            <select name="" id="">
+            <select name="" id="dropdown">
               <option value="New Project">New Project</option>
-              <option value="Ugly Colors">Ugly Colors</option>
-              <option value="Christmas">Christmas</option>
             </select>
           </div>
-          <button>Save Palette</button>
+          <button id="save-palette-btn">Save Palette</button>
         </div>
 
         <div class="display-projects">
           <h2>Current Projects:</h2>
-          
-          <!-- <h3>Project 1</h3>
-          <div class="square-holder">
-            <div id="projectZero" class="project-square" style="background-color:red"></div>
-            <div id="projectOne" class="project-square" style="background-color:yellow"></div>
-            <div id="projectTwo" class="project-square" style="background-color:green"></div>
-            <div id="projectThree" class="project-square" style="background-color:blue"></div>
-            <div id="projectFour" class="project-square" style="background-color:magenta"></div>
-          </div> -->
+
         </div>
       </section>
     </main>

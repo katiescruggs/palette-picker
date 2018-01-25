@@ -35,7 +35,7 @@ app.get('/', (request, response) => {
 app.get('/api/v1/projects', (request, response) => {
   database('projects').select()
     .then(projects => {
-      return response.status(200).json({ projects });
+      return response.status(200).json({ results: projects });
     })
     .catch(error => {
       return response.status(500).json({ error });
@@ -85,13 +85,15 @@ app.post('/api/v1/projects/:projectId/palettes', (request, response) => {
     })
 });
 
-// not operational currently
 app.delete('/api/v1/projects/:projectId/palettes/:paletteId', (request, response) => {
   const { projectId, paletteId } = request.params;
 
-  database('palettes').where('id', paletteId).del()
+  database('palettes').where('project_id', projectId).where('id', paletteId).del()
     .then(data => {
       return response.status(204).json({ data });
+    })
+    .catch(error => {
+      return response.status(500).json({ error });
     })
 });
 
