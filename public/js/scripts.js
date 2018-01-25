@@ -59,40 +59,40 @@ const refreshColors = () => {
 
 const fetchProjects = async () => {
   const projectsFetch = await fetch('/api/v1/projects');
-  const projects = await projectsFetch.json();
+  const projectResults = await projectsFetch.json();
+  const projects = projectResults.results;
 
-  console.log(projects.projects);
-  fetchPalettes(projects.projects);
+  console.log(projects);
+  fetchPalettes(projects[0]);
 };
 
-const fetchPalettes = async (projects) => {
-  const unresolvedPalettes = projects.map(async (project) => {
-    const paletteFetch = await fetch(`/api/v1/palettes/${project}`);
-    const paletteObj = await paletteFetch.json();
-    return { [project]: paletteObj.palettes };
-  });
+const fetchPalettes = async (project) => {
+  console.log(project);
 
-  const palettes = await Promise.all(unresolvedPalettes);
-  displaySavedPalettes(palettes);
+  const paletteFetch = await fetch(`/api/v1/projects/${project.id}/palettes`);
+  const paletteResults = await paletteFetch.json();
+  const palette = paletteResults.results;
+
+  console.log(palette);
+
+  displaySavedPalettes(project.title, palette);
 };
 
-const displaySavedPalettes = (palettes) => {
-  palettes.forEach(palette => {
-    const project = Object.keys(palette);
-    $('.display-projects').append(`<h3>${Object.keys(palette)}</h3>`);
+const displaySavedPalettes = (projectTitle, palette) => {
+  $('.display-projects').append(`<h3>${projectTitle}</h3>`);
 
-    for (var i = 0; i < palette[project].length; i++) {
-      $('.display-projects').append(`
-        <div class="square-holder">
-          <div class="project-square" style="background-color:${palette[project][i][0]}"></div>
-          <div class="project-square" style="background-color:${palette[project][i][1]}"></div>
-          <div class="project-square" style="background-color:${palette[project][i][2]}"></div>
-          <div class="project-square" style="background-color:${palette[project][i][3]}"></div>
-          <div class="project-square" style="background-color:${palette[project][i][4]}"></div>
-        </div>
-      `);
-    }
-  });
+  for (var i = 0; i < palette.length; i++) {
+    $('.display-projects').append(`
+      <h4>${palette[i].title}</h4>
+      <div class="square-holder">
+        <div class="project-square" style="background-color:${palette[i].color1}"></div>
+        <div class="project-square" style="background-color:${palette[i].color2}"></div>
+        <div class="project-square" style="background-color:${palette[i].color3}"></div>
+        <div class="project-square" style="background-color:${palette[i].color4}"></div>
+        <div class="project-square" style="background-color:${palette[i].color5}"></div>
+      </div>
+    `);
+  }
 }
 
 $(document).ready(() => {
