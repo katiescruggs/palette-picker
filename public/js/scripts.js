@@ -150,8 +150,7 @@ const postProject = async () => {
   });
 
   const post = await initialPost.json();
-  fetchProjects();
-  console.log(post)
+  displaySelectOption(title);
 };
 
 $(document).ready(() => {
