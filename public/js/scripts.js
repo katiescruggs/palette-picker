@@ -87,6 +87,7 @@ const displaySelectOption = (projectTitle) => {
 };
 
 const displaySavedPalettes = (projectTitle, palette) => {
+  console.log('displaySavedPalettes, appending')
   $('.display-projects').append(`<h3>${projectTitle}</h3>`);
 
   for (var i = 0; i < palette.length; i++) {
@@ -100,6 +101,7 @@ const displaySavedPalettes = (projectTitle, palette) => {
           <div class="project-square" style="background-color:${palette[i].color4}"></div>
           <div class="project-square" style="background-color:${palette[i].color5}"></div>
         </div>
+        <button class="delete-btn" id=${palette[i].title}>x</button>
       </div>
     `);
   }
@@ -152,15 +154,6 @@ const postProject = async () => {
   console.log(post)
 };
 
-const displayPalette = () => {
-
-}
-
-
-const deletePalette = () => {
-
-};
-
 $(document).ready(() => {
   refreshColors();
   fetchProjects();
@@ -176,21 +169,35 @@ $('.color-container').on('click', '.color-div', function() {
   $(this).toggleClass('locked');
 });
 
-$('.display-projects').on('click', '.saved-palette', function() {
-  console.log(palettes)
-  const paletteTitle = $(this).children('h4').text();
+$('.display-projects').on('click', '.saved-palette', function(event) {
+
+  if (!$(event.target).hasClass('delete-btn')) {
+    const paletteTitle = $(this).children('h4').text();
+    const palette = palettes.find(palette => palette.title === paletteTitle);
+
+    const paletteColors = ['color1', 'color2', 'color3', 'color4', 'color5'];
+
+    blocks.forEach((block, index) => {
+      const paletteColor = palette[paletteColors[index]];
+      block.color = paletteColor;
+      block.div.style.backgroundColor = paletteColor;
+      block.hex.innerText = paletteColor;
+    });
+  }
+});
+
+$('.display-projects').on('click', '.delete-btn', async function() {
+  console.log('delete click')
+  const paletteTitle = $(this).parent().children('h4').text();
   const palette = palettes.find(palette => palette.title === paletteTitle);
-  console.log(palette)
 
-  const paletteColors = ['color1', 'color2', 'color3', 'color4', 'color5'];
+  const projectId = palette.project_id;
+  const paletteId = palette.id;
 
-  blocks.forEach((block, index) => {
-    const paletteColor = palette[paletteColors[index]];
-    block.color = paletteColor;
-    block.div.style.backgroundColor = paletteColor;
-    block.hex.innerText = paletteColor;
-  });
+  const deleteFetch = await fetch(`/api/v1/projects/${projectId}/palettes/${paletteId}`, {
+    method: 'DELETE'});
 
+  $(this).parent().remove();
 });
 
 $('#save-palette-btn').on('click', savePalette);

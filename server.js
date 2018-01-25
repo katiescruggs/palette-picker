@@ -88,7 +88,7 @@ app.post('/api/v1/projects/:projectId/palettes', (request, response) => {
 app.delete('/api/v1/projects/:projectId/palettes/:paletteId', (request, response) => {
   const { projectId, paletteId } = request.params;
 
-  database('palettes').where('project_id', projectId).where('id', paletteId).del()
+  database('palettes').where('project_id', projectId).where('id', paletteId).delete()
     .then(data => {
       return response.status(204).json({ data });
     })
