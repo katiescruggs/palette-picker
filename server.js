@@ -54,13 +54,24 @@ app.post('/api/v1/projects', (request, response) => {
     });
   }
 
-  database('projects').insert(project, 'id')
-    .then(projectId => {
-      return response.status(201).json({ id: projectId[0] });
+  database('projects').where('title', project.title).select()
+    .then(result => {
+      console.log(result)
+      if (result.length) {
+        return response.status(422).json({
+          error: `Sorry, a project with the title ${project.title} already exists!`
+        })
+      } else {
+        database('projects').insert(project, 'id')
+          .then(projectId => {
+            return response.status(201).json({ id: projectId[0] });
+          })
+          .catch(error => {
+            return response.status(500).json({ error });
+          })
+      }
     })
-    .catch(error => {
-      return response.status(500).json({ error });
-    })
+
 });
 
 app.get('/api/v1/projects/:projectId/palettes', (request, response) => {
