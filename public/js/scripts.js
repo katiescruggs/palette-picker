@@ -87,7 +87,6 @@ const displaySelectOption = (projectTitle) => {
 };
 
 const displaySavedPalettes = (projectTitle, palette) => {
-  console.log('displaySavedPalettes, appending')
   $('.display-projects').append(`<h3>${projectTitle}</h3>`);
 
   for (var i = 0; i < palette.length; i++) {
@@ -101,7 +100,7 @@ const displaySavedPalettes = (projectTitle, palette) => {
           <div class="project-square" style="background-color:${palette[i].color4}"></div>
           <div class="project-square" style="background-color:${palette[i].color5}"></div>
         </div>
-        <button class="delete-btn" id=${palette[i].title}>x</button>
+        <button class="delete-btn" id=${palette[i].title}>delete</button>
       </div>
     `);
   }
@@ -135,7 +134,6 @@ const postPalette = async (paletteBody, project) => {
   const post = await initialPost.json();
   $('.display-projects').html('');
   fetchProjects();
-  console.log(`${paletteBody.title} palette created in ${project.title}!`)
 };
 
 const postProject = async () => {
