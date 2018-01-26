@@ -5,10 +5,7 @@
 }
 
 header {
-  background-color: #E8E8EE;
-  background-color: #919195;
   background-color: #3A3A3B;
-
   color: white;
   position: absolute;
   width: 100%;
@@ -85,11 +82,19 @@ main {
 
 .projects-container {
   background-color: #F6F6F9;
-  height: calc(100vh - 140px);
+  height: calc(100vh - 160px);
   padding: 10px;
-  margin-top: 120px;
+  margin-top: 140px;
   overflow: scroll;
   width: 300px;
+}
+
+.new-project {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 135px;
 }
 
 .save-palette {
@@ -97,12 +102,12 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 150px;
+  height: 165px;
 }
 
 h2 {
   font-size: 20px;
-  margin: 10px 0;
+  margin: 20px 0 5px 0;
 }
 
 .display-projects {
@@ -118,7 +123,7 @@ input,
 button,
 span {
   font-size: 20px;
-  padding: 2px;
+  padding: 5px;
 }
 
 .dark {
@@ -134,6 +139,7 @@ span {
 
 .delete-btn {
   margin-bottom: 10px;
+  padding: 3px;
 }
 
 .project-square {
