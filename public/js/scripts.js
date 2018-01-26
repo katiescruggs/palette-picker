@@ -150,6 +150,11 @@ const postProject = async () => {
   });
 
   const post = await initialPost.json();
+
+  const projectsFetch = await fetch('/api/v1/projects');
+  const projectResults = await projectsFetch.json();
+  projects = projectResults.results;
+  
   displaySelectOption(title);
 };
 
