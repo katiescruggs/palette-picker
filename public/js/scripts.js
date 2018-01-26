@@ -108,7 +108,6 @@ const displaySavedPalettes = (projectTitle, palette) => {
 
 const savePalette = () => {
   const projectTitle = $('#dropdown').val();
-  console.log(projectTitle)
   const project = projects.find(fetchedProj => fetchedProj.title === projectTitle);
 
   const title = $('#palette-input').val();
@@ -124,7 +123,6 @@ const savePalette = () => {
 };
 
 const postPalette = async (paletteBody, project) => {
-  console.log(project)
   const initialPost = await fetch(`api/v1/projects/${project.id}/palettes`, {
     method: 'POST',
     headers: {
@@ -191,7 +189,6 @@ $('.display-projects').on('click', '.saved-palette', function(event) {
 });
 
 $('.display-projects').on('click', '.delete-btn', async function() {
-  console.log('delete click')
   const paletteTitle = $(this).parent().children('h4').text();
   const palette = palettes.find(palette => palette.title === paletteTitle);
 
