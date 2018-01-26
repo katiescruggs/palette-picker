@@ -83,11 +83,10 @@ const fetchPalettes = async (project) => {
 };
 
 const displaySelectOption = (projectTitle) => {
-  $('#dropdown').append(`<option value=${projectTitle}>${projectTitle}</option>`);
+  $('#dropdown').append(`<option value="${projectTitle}">${projectTitle}</option>`);
 };
 
 const displaySavedPalettes = (projectTitle, palette) => {
-  console.log('displaySavedPalettes, appending')
   $('.display-projects').append(`<h3>${projectTitle}</h3>`);
 
   for (var i = 0; i < palette.length; i++) {
@@ -101,7 +100,7 @@ const displaySavedPalettes = (projectTitle, palette) => {
           <div class="project-square" style="background-color:${palette[i].color4}"></div>
           <div class="project-square" style="background-color:${palette[i].color5}"></div>
         </div>
-        <button class="delete-btn" id=${palette[i].title}>x</button>
+        <button class="delete-btn" id=${palette[i].title}>delete</button>
       </div>
     `);
   }
@@ -109,6 +108,7 @@ const displaySavedPalettes = (projectTitle, palette) => {
 
 const savePalette = () => {
   const projectTitle = $('#dropdown').val();
+  console.log(projectTitle)
   const project = projects.find(fetchedProj => fetchedProj.title === projectTitle);
 
   const title = $('#palette-input').val();
@@ -124,6 +124,7 @@ const savePalette = () => {
 };
 
 const postPalette = async (paletteBody, project) => {
+  console.log(project)
   const initialPost = await fetch(`api/v1/projects/${project.id}/palettes`, {
     method: 'POST',
     headers: {
@@ -135,7 +136,6 @@ const postPalette = async (paletteBody, project) => {
   const post = await initialPost.json();
   $('.display-projects').html('');
   fetchProjects();
-  console.log(`${paletteBody.title} palette created in ${project.title}!`)
 };
 
 const postProject = async () => {

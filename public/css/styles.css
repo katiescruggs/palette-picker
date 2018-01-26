@@ -5,16 +5,16 @@
 }
 
 header {
-  background-color: white;
+  background-color: #3A3A3B;
+  color: white;
   position: absolute;
   width: 100%;
 }
 
 h1 {
-  font-size: 35px;
-  font-weight: normal;
+  font-size: 60px;
+  margin-top: 20px;
   letter-spacing: 2px;
-  margin: 20px;
   text-align: center;
 }
 
@@ -70,7 +70,7 @@ main {
 .instructions {
   text-align: center;
   font-size: 20px;
-  margin-bottom: 10px;
+  margin: 20px 0;
 }
 
 #btn {
@@ -81,11 +81,20 @@ main {
 }
 
 .projects-container {
-  height: calc(100vh - 140px);
+  background-color: #F6F6F9;
+  height: calc(100vh - 160px);
   padding: 10px;
-  margin-top: 120px;
+  margin-top: 140px;
   overflow: scroll;
   width: 300px;
+}
+
+.new-project {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 135px;
 }
 
 .save-palette {
@@ -93,12 +102,12 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 150px;
+  height: 165px;
 }
 
 h2 {
   font-size: 20px;
-  margin: 10px 0;
+  margin: 20px 0 5px 0;
 }
 
 .display-projects {
@@ -114,7 +123,7 @@ input,
 button,
 span {
   font-size: 20px;
-  padding: 2px;
+  padding: 5px;
 }
 
 .dark {
@@ -126,11 +135,37 @@ span {
   display: flex;
   height: 30px;
   width: 250px;
-  margin-bottom: 50px;
+}
+
+.delete-btn {
+  margin-bottom: 10px;
+  padding: 3px;
 }
 
 .project-square {
   background-color: red;
   height: 30px;
   width: 20%;
+}
+
+.saved-palette {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+h4 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.delete-btn {
+  font-size: 16px;
+  position: absolute;
+  top: -3px;
+  right: 0;
 }
