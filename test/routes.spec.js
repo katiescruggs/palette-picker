@@ -31,6 +31,9 @@ describe('Client Routes', () => {
     .then(response => {
       response.should.have.status(404);
     })
+    .catch(error => {
+      throw error;
+    })
   });
 });
 
@@ -57,9 +60,6 @@ describe('API Routes', () => {
         response.body.results[0].should.have.property('title');
         response.body.results[0].should.have.property('created_at');
         response.body.results[0].should.have.property('updated_at');
-      })
-      .catch(error => {
-        throw error;
       })
     })
   });
@@ -122,24 +122,114 @@ describe('API Routes', () => {
   describe('POST /api/v1/projects/:projectId/palettes', () => {
     it('should create a palette', () => {
       return chai.request(server)
-      .post('/api/v1/projects/1/palettes')
-      .send({
-        title: "test-palette",
-        color1: "red",
-        color2: "blue",
-        color3: "yellow",
-        color4: "green",
-        color5: "magenta"
-      })
+      .get('/api/v1/projects')
       .then(response => {
-        response.should.have.status(201);
-        console.log(response.body.error)
+        return response.body.results[0].id
       })
-    })
+      .then(id => {
+        return chai.request(server)
+        .post(`/api/v1/projects/${id}/palettes`)
+        .send({
+          title: "test-palette",
+          color1: "red",
+          color2: "blue",
+          color3: "yellow",
+          color4: "green",
+          color5: "magenta"
+        })
+        .then(response => {
+          response.should.have.status(201);
+          response.body.should.be.a('object');
+          response.body.should.have.property('id');
+        })
+        .catch(error => {
+          throw error;
+        })
+      })
+    });
+
+    it('should return error if title parameter is missing', () => {
+      return chai.request(server)
+        .get('/api/v1/projects')
+        .then(response => {
+          return response.body.results[0].id
+        })
+        .then(id => {
+          return chai.request(server)
+          .post(`/api/v1/projects/${id}/palettes`)
+          .send({
+            color1: "red",
+            color2: "blue",
+            color3: "yellow",
+            color4: "green",
+            color5: "magenta"
+          })
+          .then(response => {
+            response.should.have.status(422);
+            response.should.be.json;
+            response.should.be.a('object');
+            response.should.have.property('error');
+            response.body.error.should.equal('You are missing the required parameter title');
+          })
+        })
+
+    });
+
+    it('should return error if color1 parameter is missing', () => {
+      return chai.request(server)
+        .get('/api/v1/projects')
+        .then(response => {
+          return response.body.results[0].id
+        })
+        .then(id => {
+          return chai.request(server)
+          .post(`/api/v1/projects/${id}/palettes`)
+          .send({
+            title: "Title",
+            color2: "blue",
+            color3: "yellow",
+            color4: "green",
+            color5: "magenta"
+          })
+          .then(response => {
+            response.should.have.status(422);
+            response.should.be.json;
+            response.should.be.a('object');
+            response.should.have.property('error');
+            response.body.error.should.equal('You are missing the required parameter color1');
+          })
+        })
+    });
   });
 
   describe('DELETE /api/v1/projects/:projectId/palettes/:paletteId', () => {
-
+    it.skip('should delete a palette', () => {
+      return chai.request(server)
+        .get('/api/v1/projects')
+        .then(response => {
+          return response.body.results[0].id
+        })
+        .then(id => {
+          return chai.request(server)
+          .get(`/api/v1/projects/${id}/palettes`)
+          .then(response => {
+            const ids = { projectId: id, paletteId: response.body.results[0].id };
+            return ids;
+          })
+          .then(ids => {
+            return chai.request(server)
+            .delete(`api/v1/projects/${ids.projectId}/palettes/${ids.paletteId}`)
+            .then(response => {
+              response.should.have.status(204)
+            })
+          })
+          
+          .catch(error => {
+            throw error;
+          })
+        })
+      
+    });
   });
 
 
