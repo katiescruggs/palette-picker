@@ -83,7 +83,7 @@ const fetchPalettes = async (project) => {
 };
 
 const displaySelectOption = (projectTitle) => {
-  $('#dropdown').append(`<option value=${projectTitle}>${projectTitle}</option>`);
+  $('#dropdown').append(`<option value="${projectTitle}">${projectTitle}</option>`);
 };
 
 const displaySavedPalettes = (projectTitle, palette) => {
@@ -108,6 +108,7 @@ const displaySavedPalettes = (projectTitle, palette) => {
 
 const savePalette = () => {
   const projectTitle = $('#dropdown').val();
+  console.log(projectTitle)
   const project = projects.find(fetchedProj => fetchedProj.title === projectTitle);
 
   const title = $('#palette-input').val();
@@ -123,6 +124,7 @@ const savePalette = () => {
 };
 
 const postPalette = async (paletteBody, project) => {
+  console.log(project)
   const initialPost = await fetch(`api/v1/projects/${project.id}/palettes`, {
     method: 'POST',
     headers: {
