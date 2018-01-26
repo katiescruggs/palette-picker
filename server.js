@@ -73,7 +73,7 @@ app.get('/api/v1/projects/:projectId/palettes', (request, response) => {
       }
     })
     .catch(error => {
-      return response.status(500).json({ error });
+      return response.sendStatus(404);
     })
 });
 

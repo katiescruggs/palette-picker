@@ -110,8 +110,12 @@ describe('API Routes', () => {
       })
     });
 
-    it.skip('should return a 404 if the project is not found', () => {
-
+    it('should return a 404 if the project is not found', () => {
+      return chai.request(server)
+      .get('/api/v1/projects/1000000000000/palettes')
+      .then(response => {
+        response.should.have.status(404);
+      })
     });
   });
 
