@@ -5,16 +5,19 @@
 }
 
 header {
-  background-color: white;
+  background-color: #E8E8EE;
+  background-color: #919195;
+  background-color: #3A3A3B;
+
+  color: white;
   position: absolute;
   width: 100%;
 }
 
 h1 {
-  font-size: 35px;
-  font-weight: normal;
+  font-size: 60px;
+  margin-top: 20px;
   letter-spacing: 2px;
-  margin: 20px;
   text-align: center;
 }
 
@@ -70,7 +73,7 @@ main {
 .instructions {
   text-align: center;
   font-size: 20px;
-  margin-bottom: 10px;
+  margin: 20px 0;
 }
 
 #btn {
@@ -81,6 +84,7 @@ main {
 }
 
 .projects-container {
+  background-color: #F6F6F9;
   height: calc(100vh - 140px);
   padding: 10px;
   margin-top: 120px;
