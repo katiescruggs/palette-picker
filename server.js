@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(app.get('port'), () => {
+const httpServer = app.listen(app.get('port'), () => {
   console.log(`Palette Picker running on ${app.get('port')}`);
 });
 
@@ -96,4 +96,6 @@ app.delete('/api/v1/projects/:projectId/palettes/:paletteId', (request, response
       return response.status(500).json({ error });
     })
 });
+
+module.exports = httpServer;
 
