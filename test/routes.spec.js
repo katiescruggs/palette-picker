@@ -92,14 +92,21 @@ describe('API Routes', () => {
   });
 
   describe('GET /api/v1/projects/:projectId/palettes', () => {
-    it.skip('should return the palettes for one project', () => {
+    it('should return the palettes for one project', () => {
       return chai.request(server)
-      .get('/api/v1/projects/1/palettes')
+      .get('/api/v1/projects')
       .then(response => {
-        response.should.have.status(200);
+        return response.body.results[0].id
       })
-      .catch(error => {
-        throw error;
+      .then(id => {
+        return chai.request(server)
+        .get(`/api/v1/projects/${id}/palettes`)
+        .then(response => {
+          response.should.have.status(200);
+        })
+        .catch(error => {
+          throw error;
+        })
       })
     });
 

@@ -10,12 +10,13 @@ const database = require('knex')(configuration);
 function checkRequirements(requestBody, requirements, response) {
   for (let requiredParameter of requirements) {
     if (!requestBody[requiredParameter]) {
-      return response.status(422).json({
-        error: `You are missing the required parameter ${requiredParameter}`
-      });
+      return { missing: true, requiredParameter }
     }
   }
+  return { missing: false };
 }
+
+
 
 app.set('port', process.env.PORT || 3000);
 
@@ -45,7 +46,13 @@ app.get('/api/v1/projects', (request, response) => {
 app.post('/api/v1/projects', (request, response) => {
   const project = request.body;
 
-  checkRequirements(project, ['title'], response);
+  const check = checkRequirements(project, ['title'], response);
+
+  if (check.missing) {
+    return response.status(422).json({
+        error: `You are missing the required parameter ${check.requiredParameter}`
+    });
+  }
 
   database('projects').insert(project, 'id')
     .then(projectId => {
@@ -74,7 +81,13 @@ app.post('/api/v1/projects/:projectId/palettes', (request, response) => {
   const { projectId } = request.params;
   const palettes = Object.assign({}, request.body, { project_id: projectId });
 
-  checkRequirements(palettes, ['title', 'color1', 'color2', 'color3', 'color4', 'color5'], response);
+  const check = checkRequirements(palettes, ['title', 'color1', 'color2', 'color3', 'color4', 'color5'], response);
+
+  if (check.missing) {
+    return response.status(422).json({
+        error: `You are missing the required parameter ${check.requiredParameter}`
+    });
+  }
 
   database('palettes').insert(palettes, 'id')
     .then(palettesId => {
