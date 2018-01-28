@@ -147,7 +147,6 @@ const postProject = async () => {
     body: JSON.stringify({ title })
   });
 
-  console.log(initialPost.status);
   if (initialPost.status === 201) {
     const post = await initialPost.json();
 
