@@ -1,0 +1,14 @@
+machine:
+  timezone:
+    America/Denver
+  node:
+    version: 8.9.1
+environment:
+  DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/palettepicker_test
+database:
+  override:
+    - sudo -u postgres psql -p 5432 -c "create database palettepicker_test;"
+    - knex migrate:latest
+test:
+  override:
+    - mocha --exit
