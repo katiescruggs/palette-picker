@@ -56,7 +56,6 @@ app.post('/api/v1/projects', (request, response) => {
 
   database('projects').where('title', project.title).select()
     .then(result => {
-      console.log(result)
       if (result.length) {
         return response.status(422).json({
           error: `Sorry, a project with the title ${project.title} already exists!`
